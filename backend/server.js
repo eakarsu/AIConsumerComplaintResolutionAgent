@@ -60,6 +60,14 @@ app.use('/api/gap-no-analytics-or-reporting', require('./routes/gap_no_analytics
 // // === Batch 02 Gaps & Frontend Mounts ===
 app.use('/api/gap-no-notifications-webhooks-integrations', require('./routes/gap_no_notifications_webhooks_integrations'));
 
+// === Custom Views (4 endpoints) — mounted BEFORE 404 ===
+app.use('/api/custom-views', require('./routes/customViews'));
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not found', path: req.originalUrl });
+});
+
 app.listen(PORT, () => {
   console.log(`AIConsumerComplaintResolutionAgent backend running on port ${PORT}`);
 });
