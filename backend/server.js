@@ -21,6 +21,7 @@ app.use('/api/ai', require('./routes/rootCauseCluster'));
 app.use('/api/ai', require('./routes/sentimentEscalate'));
 
 app.use('/api/ai', require('./routes/refundScoring'));
+app.use('/api/regulatory-sla', require('./routes/regulatorySla'));
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', service: 'AIConsumerComplaintResolutionAgent', timestamp: new Date().toISOString() });
 });

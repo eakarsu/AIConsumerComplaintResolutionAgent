@@ -17,6 +17,7 @@ import RegulatoryFlag from './pages/RegulatoryFlag.jsx';
 import AgentChat from './pages/AgentChat.jsx';
 import PostResolutionSummary from './pages/PostResolutionSummary.jsx';
 import CustomViewsPage from './pages/CustomViewsPage.jsx';
+import RegulatorySlaPlanner from './pages/RegulatorySlaPlanner.jsx';
 
 // // === Batch 02 Gaps & Frontend Mounts ===
 import CfComplaintAutoRoutingTriage from './pages/CfComplaintAutoRoutingTriage.jsx';
@@ -35,6 +36,11 @@ import GapNoCustomerCommunicationChannel from './pages/GapNoCustomerCommunicatio
 import GapNoAnalyticsOrReporting from './pages/GapNoAnalyticsOrReporting.jsx';
 import GapNoNotificationsWebhooksIntegrations from './pages/GapNoNotificationsWebhooksIntegrations.jsx';
 
+import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
+import CodexOperationsFeature from './pages/CodexOperationsFeature';
+
+import TimelineView from './pages/TimelineView';
+
 function Sidebar() {
   const { user, logout } = useAuth();
   const nav = useNavigate();
@@ -44,6 +50,7 @@ function Sidebar() {
       <h1>Complaint Resolution AI</h1>
       <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink>
       <NavLink to="/custom-views" className={({ isActive }) => isActive ? 'active' : ''}>Complaint Views</NavLink>
+      <NavLink to="/tools/regulatory-sla" className={({ isActive }) => isActive ? 'active' : ''}>Regulatory SLA</NavLink>
       <div style={{ marginTop: 12, fontSize: '0.75rem', textTransform: 'uppercase', color: '#9ca3af' }}>AI Tools</div>
       {TOOLS.map((t) => (
         <NavLink key={t.path} to={t.path} className={({ isActive }) => isActive ? 'active' : ''}>
@@ -77,6 +84,10 @@ export default function App() {
   if (!user) {
     return (
       <Routes>
+        <Route path="/insights/timeline" element={<TimelineView />} />
+        <Route path="/codex/custom-viz" element={<CodexCustomVizFeature />} />
+        <Route path="/codex/operations" element={<CodexOperationsFeature />} />
+
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Login />} />
       
@@ -112,6 +123,7 @@ export default function App() {
       <Route path="/tools/regulatory-flag" element={<ProtectedShell><RegulatoryFlag /></ProtectedShell>} />
       <Route path="/tools/agent-chat" element={<ProtectedShell><AgentChat /></ProtectedShell>} />
       <Route path="/tools/post-resolution-summary" element={<ProtectedShell><PostResolutionSummary /></ProtectedShell>} />
+      <Route path="/tools/regulatory-sla" element={<ProtectedShell><RegulatorySlaPlanner /></ProtectedShell>} />
       <Route path="/custom-views" element={<ProtectedShell><CustomViewsPage /></ProtectedShell>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
