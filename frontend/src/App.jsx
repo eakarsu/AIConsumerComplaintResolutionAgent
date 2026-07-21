@@ -25,16 +25,6 @@ import CfResolutionPrediction from './pages/CfResolutionPrediction.jsx';
 import CfRootCauseAnalysisAutomation from './pages/CfRootCauseAnalysisAutomation.jsx';
 import CfSentimentDrivenEscalation from './pages/CfSentimentDrivenEscalation.jsx';
 import CfPredictiveRefundScoring from './pages/CfPredictiveRefundScoring.jsx';
-import GapNoComplaintAutoRoutingTriageAi from './pages/GapNoComplaintAutoRoutingTriageAi.jsx';
-import GapNoSentimentDrivenEscalation from './pages/GapNoSentimentDrivenEscalation.jsx';
-import GapNoResolutionPredictionOrChurnRiskScoring from './pages/GapNoResolutionPredictionOrChurnRiskScoring.jsx';
-import GapNoRootCauseClusteringAi from './pages/GapNoRootCauseClusteringAi.jsx';
-import GapNoComplaintIntakeFormOrApi from './pages/GapNoComplaintIntakeFormOrApi.jsx';
-import GapNoCategorizationOrAssignmentWorkflow from './pages/GapNoCategorizationOrAssignmentWorkflow.jsx';
-import GapNoResolutionTrackingOrEscalationChain from './pages/GapNoResolutionTrackingOrEscalationChain.jsx';
-import GapNoCustomerCommunicationChannel from './pages/GapNoCustomerCommunicationChannel.jsx';
-import GapNoAnalyticsOrReporting from './pages/GapNoAnalyticsOrReporting.jsx';
-import GapNoNotificationsWebhooksIntegrations from './pages/GapNoNotificationsWebhooksIntegrations.jsx';
 
 import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
 import CodexOperationsFeature from './pages/CodexOperationsFeature';
@@ -97,16 +87,6 @@ export default function App() {
         <Route path="/cf/root-cause-analysis-automation" element={<CfRootCauseAnalysisAutomation />} />
         <Route path="/cf/sentiment-driven-escalation" element={<CfSentimentDrivenEscalation />} />
         <Route path="/cf/predictive-refund-scoring" element={<CfPredictiveRefundScoring />} />
-        <Route path="/gap/no-complaint-auto-routing-triage-ai" element={<GapNoComplaintAutoRoutingTriageAi />} />
-        <Route path="/gap/no-sentiment-driven-escalation" element={<GapNoSentimentDrivenEscalation />} />
-        <Route path="/gap/no-resolution-prediction-or-churn-risk-scoring" element={<GapNoResolutionPredictionOrChurnRiskScoring />} />
-        <Route path="/gap/no-root-cause-clustering-ai" element={<GapNoRootCauseClusteringAi />} />
-        <Route path="/gap/no-complaint-intake-form-or-api" element={<GapNoComplaintIntakeFormOrApi />} />
-        <Route path="/gap/no-categorization-or-assignment-workflow" element={<GapNoCategorizationOrAssignmentWorkflow />} />
-        <Route path="/gap/no-resolution-tracking-or-escalation-chain" element={<GapNoResolutionTrackingOrEscalationChain />} />
-        <Route path="/gap/no-customer-communication-channel" element={<GapNoCustomerCommunicationChannel />} />
-        <Route path="/gap/no-analytics-or-reporting" element={<GapNoAnalyticsOrReporting />} />
-        <Route path="/gap/no-notifications-webhooks-integrations" element={<GapNoNotificationsWebhooksIntegrations />} />
       </Routes>
     );
   }
