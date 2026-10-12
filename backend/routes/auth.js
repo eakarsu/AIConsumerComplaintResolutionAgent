@@ -5,6 +5,30 @@ const pool = require('../db');
 const authenticate = require('../middleware/auth');
 const router = express.Router();
 
+const demoAvailable = (req) => process.env.NODE_ENV !== 'production'
+  && process.env.ENABLE_DEMO_CREDENTIAL_AUTOFILL !== 'false'
+  && Boolean(process.env.DEMO_EMAIL && process.env.DEMO_PASSWORD)
+  && ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.socket.remoteAddress);
+
+router.get('/demo-status', (req, res) => {
+  res.json({ available: demoAvailable(req) });
+});
+
+router.post('/demo-login', async (req, res) => {
+  if (!demoAvailable(req)) return res.status(404).json({ error: 'Local demo login is unavailable.' });
+  try {
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [process.env.DEMO_EMAIL]);
+    const user = result.rows[0];
+    if (!user || !await bcrypt.compare(process.env.DEMO_PASSWORD, user.password)) {
+      return res.status(503).json({ error: 'The configured demo account is unavailable or its credentials do not match.' });
+    }
+    const token = jwt.sign({ id: user.id, email: user.email, role: 'intake' }, process.env.JWT_SECRET, { expiresIn: '24h' });
+    res.json({ user: { id: user.id, name: user.name, email: user.email }, token });
+  } catch (_) {
+    res.status(503).json({ error: 'Demo login could not reach the existing account.' });
+  }
+});
+
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;

@@ -16,7 +16,8 @@ export default function RoutingRulesEditor() {
     setErr('');
     try {
       const d = await apiFetch('/api/custom-views/routing-rules');
-      setRules(d.rules || []);
+      if (!Array.isArray(d?.rules)) throw new Error('Routing rules returned an invalid list. Check the routing rules API response.');
+      setRules(d.rules);
     } catch (e) {
       setErr(e.message);
     } finally {

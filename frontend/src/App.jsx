@@ -1,3 +1,4 @@
+import AIReportLibrary from "./components/AIReportLibrary";
 import React from 'react';
 import { Routes, Route, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext.jsx';
@@ -52,7 +53,7 @@ function Sidebar() {
         <div><strong>{user?.name || user?.email}</strong></div>
         <button onClick={onLogout}>Sign out</button>
       </div>
-    </nav>
+    <AIReportLibrary /></nav>
   );
 }
 

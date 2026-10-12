@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext.jsx';
+import { apiFetch } from '../api.js';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [err, setErr] = useState('');
   const [busy, setBusy] = useState(false);
+  const [demoAvailable, setDemoAvailable] = useState(false);
   const nav = useNavigate();
-  const { login } = useAuth();
+  const { login, demoLogin } = useAuth();
+
+  useEffect(() => {
+    apiFetch('/api/auth/demo-status').then((data) => setDemoAvailable(Boolean(data.available))).catch(() => setDemoAvailable(false));
+  }, []);
+
+  async function onDemoLogin() {
+    setErr('');
+    setBusy(true);
+    try {
+      await demoLogin();
+      nav('/');
+    } catch (error) {
+      setErr(error.message);
+    } finally {
+      setBusy(false);
+    }
+  }
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -40,12 +59,12 @@ export default function Login() {
         {err && <div className="error">{err}</div>}
         <button
           type="button"
-          onClick={() => { setEmail(import.meta.env.VITE_DEMO_EMAIL || ''); setPassword(import.meta.env.VITE_DEMO_PASSWORD || ''); }}
-          disabled={!import.meta.env.VITE_DEMO_EMAIL || !import.meta.env.VITE_DEMO_PASSWORD}
-          aria-label="Auto Fill Demo Credentials"
+          onClick={onDemoLogin}
+          disabled={busy || !demoAvailable}
+          aria-label="Log In as Demo"
           style={{ width: '100%', marginBottom: '12px', padding: '10px 14px', borderRadius: '8px', border: '1px solid currentColor', background: 'transparent', cursor: 'pointer' }}
         >
-          Auto Fill Demo Credentials
+          {demoAvailable ? 'Log In as Demo' : 'Demo login unavailable'}
         </button>
         <button className="primary" disabled={busy}>{busy ? 'Signing in...' : 'Sign in'}</button>
       </form>
